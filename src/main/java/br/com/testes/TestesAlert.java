@@ -49,7 +49,24 @@ public class TestesAlert {
 		assertEquals("Negado", drive2.switchTo().alert().getText());
 		drive2.switchTo().alert().accept();
 		
-		
 		drive2.quit();
+	}
+	
+	@Test
+	public void testePrompt() {
+		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().setPosition(new Point(100, 100));
+		driver.manage().window().setSize(new Dimension(700, 700));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		
+		driver.findElement(By.id("prompt")).click();
+		driver.switchTo().alert().sendKeys("10");
+		driver.switchTo().alert().accept();
+		assertEquals("Era 10?", driver.switchTo().alert().getText());
+		driver.switchTo().alert().accept();
+		driver.switchTo().alert().accept();
+		
+		driver.quit();
 	}
 }
