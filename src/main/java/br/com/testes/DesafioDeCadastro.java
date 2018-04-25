@@ -3,6 +3,8 @@ package br.com.testes;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -13,14 +15,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class DesafioDeCadastro {
-	@Test
-	public void desafio() {
+	private WebDriver driver;
+	@Before
+	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver driver = new FirefoxDriver();
+		driver = new FirefoxDriver();
 		driver.manage().window().setPosition(new Point(100, 100));
 		driver.manage().window().setSize(new Dimension(700, 700));
 		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
+	}
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+	
+	@Test
+	public void desafio() {
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Diogo");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Santos");
 		driver.findElement(By.id("elementosForm:sexo:0")).click();
@@ -45,8 +55,5 @@ public class DesafioDeCadastro {
 		assertTrue(driver.findElement(By.id("descComida")).getText().endsWith("Pizza"));
 		assertTrue(driver.findElement(By.id("descEscolaridade")).getText().endsWith("mestrado"));
 		assertTrue(driver.findElement(By.id("descEsportes")).getText().endsWith("Natacao"));
-		
-	
-		driver.quit();
 	}
 }

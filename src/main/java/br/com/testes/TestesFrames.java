@@ -2,19 +2,29 @@ package br.com.testes;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestesFrames {
+	private WebDriver driver;
+	@Before
+	public void inicializa() {
+		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
+		driver = new FirefoxDriver();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.quit(); //Fecha e mata os processos do geckodriver
+	}
+	
 	@Test
 	public void testeFrame() {
-		System.setProperty("webdriver.gecko.driver","/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
-		
 		driver.switchTo().frame("frame1");
 		driver.findElement(By.id("frameButton")).click();
 		String str = driver.switchTo().alert().getText();
@@ -23,16 +33,10 @@ public class TestesFrames {
 		
 		driver.switchTo().defaultContent();
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(str);
-		
-		driver.quit();
 	}
 	
 	@Test
 	public void testeNewWindow() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("buttonPopUpEasy")).click();
 		driver.switchTo().window("Popup");
 		String str = "Hello World!!!";
@@ -40,15 +44,10 @@ public class TestesFrames {
 		driver.close();
 		driver.switchTo().window("");
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(str);
-		driver.quit();
 	}
 	
 	@Test
 	public void testeWindowHandler() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("buttonPopUpHard")).click();
 		
 		System.out.println(driver.getWindowHandle());
@@ -60,7 +59,6 @@ public class TestesFrames {
 		driver.close();
 		driver.switchTo().window(driver.getWindowHandles().toArray()[0].toString());
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(str);
-		driver.quit();
 	}
 
 	

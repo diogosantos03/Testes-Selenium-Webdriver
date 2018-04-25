@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -15,73 +17,49 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 public class TesteCampoTreinamento {
+	WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
+		driver = new FirefoxDriver();
+		driver.manage().window().setPosition(new Point(100, 100));
+		driver.manage().window().setSize(new Dimension(700, 700));
+		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+	
 	@Test
 	public void testeTestField() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive = new FirefoxDriver();
-		drive.manage().window().setPosition(new Point(100,100));
-		drive.manage().window().setSize(new Dimension(500, 500));
-		drive.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		drive.findElement(By.id("elementosForm:nome")).sendKeys("Diogo");
-		assertEquals("Diogo",drive.findElement(By.id("elementosForm:nome")).getAttribute("value"));
-		
-		drive.quit();
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Diogo");
+		assertEquals("Diogo",driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
 	}
 	
 	@Test
 	public void testeTestArea() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive1 = new FirefoxDriver();
-		drive1.manage().window().setPosition(new Point(100,100));
-		drive1.manage().window().setSize(new Dimension(500, 500));
-		drive1.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
-		
-		drive1.findElement(By.id("elementosForm:sugestoes")).sendKeys("Melhorar o forms");
-		assertEquals("Melhorar o forms",drive1.findElement(By.id("elementosForm:sugestoes")).getAttribute("value"));
-		
-		drive1.quit();
+		driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("Melhorar o forms");
+		assertEquals("Melhorar o forms",driver.findElement(By.id("elementosForm:sugestoes")).getAttribute("value"));
 	}
 	
 	@Test
 	public void testeTestRadioButton() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(500, 500));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		drive2.findElement(By.id("elementosForm:sexo:0")).click();
-		assertTrue(drive2.findElement(By.id("elementosForm:sexo:0")).isSelected());
-		
-		drive2.quit();
-		
+		driver.findElement(By.id("elementosForm:sexo:0")).click();
+		assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
 	}
 	
 	@Test
 	public void testeTestCampoSelect() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(500, 500));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
-		drive2.findElement(By.id("elementosForm:comidaFavorita:0")).click();
-		assertTrue(drive2.findElement(By.id("elementosForm:comidaFavorita:0")).isSelected());
-		
-		drive2.quit();
-		
+		driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
+		assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:0")).isSelected());
 	}
 	
 	
 	@Test
 	public void testeTestComboEscolaridade() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(700, 700));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
-		WebElement elemento = drive2.findElement(By.id("elementosForm:escolaridade"));
+		WebElement elemento = driver.findElement(By.id("elementosForm:escolaridade"));
 		
 		Select selecoesParaCombos = new Select(elemento);
 		//selecoesParaCombos.selectByIndex(6);
@@ -97,24 +75,13 @@ public class TesteCampoTreinamento {
 				break;
 			}
 		}
-		
 		assertTrue(encontrou);
 		assertEquals(8, selecoesParaCombos.getOptions().size());
-		
-		
-		drive2.quit();
-		
 	}
 	
 	@Test
 	public void testeTestComboMultiplasEscolhas() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(700, 700));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
-		WebElement elemento = drive2.findElement(By.id("elementosForm:esportes"));
+		WebElement elemento = driver.findElement(By.id("elementosForm:esportes"));
 		
 		Select selecoesParaCombos = new Select(elemento);
 		selecoesParaCombos.selectByVisibleText("Natacao");
@@ -123,52 +90,28 @@ public class TesteCampoTreinamento {
 		
 		List<WebElement> lista = selecoesParaCombos.getAllSelectedOptions();
 		assertEquals(3, lista.size());
-		
-		drive2.quit();
 	}
 	
 	@Test
 	public void testeTestBtn() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(700, 700));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		drive2.findElement(By.id("buttonSimple")).click();
-		assertEquals("Obrigado!", drive2.findElement(By.id("buttonSimple")).getAttribute("value"));
-		drive2.quit();
+		driver.findElement(By.id("buttonSimple")).click();
+		assertEquals("Obrigado!", driver.findElement(By.id("buttonSimple")).getAttribute("value"));
+		driver.quit();
 		
 	}
 	@Test
+	
 	@Ignore
 	public void testeTestLink() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(700, 700));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		drive2.findElement(By.linkText("Voltar"));
-		
+		driver.findElement(By.linkText("Voltar"));
 		//TODO falta terminar esse test, verificando os textos depois que quicado no link
-		
-		//drive2.quit();
 	}
 	
 	@Test
 	public void testeBuscaTexto() {
-		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
-		WebDriver drive2 = new FirefoxDriver();
-		drive2.manage().window().setPosition(new Point(100,100));
-		drive2.manage().window().setSize(new Dimension(700, 700));
-		drive2.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		drive2.findElement(By.id("buttonSimple")).click();
+		driver.findElement(By.id("buttonSimple")).click();
 		//assertTrue(drive2.findElement(By.tagName("body")).getText().contains("Campo de Treinamento"));
-		
-		assertEquals("Campo de Treinamento", drive2.findElement(By.tagName("h3")).getText());
-		assertEquals("Cuidado onde clica, muitas armadilhas...",drive2.findElement(By.className("facilAchar")).getText());
-		
-		
-		drive2.quit();
-		
+		assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+		assertEquals("Cuidado onde clica, muitas armadilhas...",driver.findElement(By.className("facilAchar")).getText());
 	}
 }
