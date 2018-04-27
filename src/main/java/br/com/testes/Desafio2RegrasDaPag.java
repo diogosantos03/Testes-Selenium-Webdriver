@@ -19,10 +19,6 @@ public class Desafio2RegrasDaPag {
 		driver = new FirefoxDriver();
 		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 	}
-	@After
-	public void finaliza() {
-		driver.quit();
-	}
 	
 	@Test
 	public void regraNome() {
@@ -89,6 +85,12 @@ public class Desafio2RegrasDaPag {
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Assert.assertEquals("Voce faz esporte ou nao?",driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
+	}
+	
+	
+	@After
+	public void finaliza() {
+		driver.quit();
 	}
 
 }
