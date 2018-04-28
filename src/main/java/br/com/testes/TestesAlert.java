@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestesAlert {
 	private WebDriver driver;
+	private DSL dsl;
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
@@ -21,6 +22,7 @@ public class TestesAlert {
 		driver.manage().window().setPosition(new Point(100,100));
 		driver.manage().window().setSize(new Dimension(700, 700));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -29,16 +31,16 @@ public class TestesAlert {
 	}
 	@Test
 	public void testeBuscaAlert() {
-		driver.findElement(By.id("alert")).click();
+		dsl.clicar("alert");
 		Alert alerta = driver.switchTo().alert();
 		assertEquals("Alert Simples",alerta.getText());
 		alerta.accept();
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Escreva algo");
+		dsl.escrever("elementosForm:nome","Escreva algo");
 	}
 	
 	@Test
 	public void testeBuscaConfirm() {
-		driver.findElement(By.id("confirm")).click();
+		dsl.clicar("confirm");
 		assertEquals("Confirm Simples", driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
 		assertEquals("Confirmado", driver.switchTo().alert().getText());
@@ -53,7 +55,7 @@ public class TestesAlert {
 	
 	@Test
 	public void testePrompt() {
-		driver.findElement(By.id("prompt")).click();
+		dsl.clicar("prompt");
 		driver.switchTo().alert().sendKeys("10");
 		driver.switchTo().alert().accept();
 		assertEquals("Era 10?", driver.switchTo().alert().getText());

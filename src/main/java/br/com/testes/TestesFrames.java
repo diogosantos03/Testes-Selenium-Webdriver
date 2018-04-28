@@ -11,11 +11,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestesFrames {
 	private WebDriver driver;
+	private DSL dsl;
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
 		driver = new FirefoxDriver();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -26,29 +28,29 @@ public class TestesFrames {
 	@Test
 	public void testeFrame() {
 		driver.switchTo().frame("frame1");
-		driver.findElement(By.id("frameButton")).click();
+		dsl.clicar("frameButton");
 		String str = driver.switchTo().alert().getText();
 		assertEquals("Frame OK!", str);
 		driver.switchTo().alert().accept();
 		
 		driver.switchTo().defaultContent();
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(str);
+		dsl.escrever("elementosForm:nome", str);
 	}
 	
 	@Test
 	public void testeNewWindow() {
-		driver.findElement(By.id("buttonPopUpEasy")).click();
+		dsl.clicar("buttonPopUpEasy");
 		driver.switchTo().window("Popup");
 		String str = "Hello World!!!";
 		driver.findElement(By.tagName("textArea")).sendKeys(str);
 		driver.close();
 		driver.switchTo().window("");
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(str);
+		dsl.escrever("elementosForm:nome", str);
 	}
 	
 	@Test
 	public void testeWindowHandler() {
-		driver.findElement(By.id("buttonPopUpHard")).click();
+		dsl.clicar("buttonPopUpHard");
 		
 		System.out.println(driver.getWindowHandle());
 		System.out.println(driver.getWindowHandles());
@@ -58,7 +60,7 @@ public class TestesFrames {
 		driver.findElement(By.tagName("textArea")).sendKeys(str);
 		driver.close();
 		driver.switchTo().window(driver.getWindowHandles().toArray()[0].toString());
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(str);
+		dsl.escrever("elementosForm:nome", str);
 	}
 
 	
