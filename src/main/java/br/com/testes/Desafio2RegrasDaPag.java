@@ -1,3 +1,4 @@
+
 package br.com.testes;
 
 
@@ -12,43 +13,43 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Desafio2RegrasDaPag {
 	private WebDriver driver;
-	private DSL dsl;
+	private CampoTreinamentoPage page;
 	
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
 		driver = new FirefoxDriver();
 		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		page = new CampoTreinamentoPage(driver);
 	}
 	
 	@Test
 	public void regraNome() {
 		/*Inserindo dados no campo sobrenome para testar a regra do campo nome*/
-		dsl.escrever("elementosForm:sobrenome", "test");
-		dsl.clicar("elementosForm:cadastrar");
-		Assert.assertEquals("Nome eh obrigatorio",driver.switchTo().alert().getText());
+		page.escreverNome("Diogo");
+		page.clicarBtnCadastrar();
+		Assert.assertEquals("Sobrenome eh obrigatorio",driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
 	}
 	
 	@Test
 	public void regraSobrenome() {
 		/*Inserindo dados no campo nome para testar a regra do campo sobrenome*/
-		dsl.escrever("elementosForm:nome", "test");
-		dsl.clicar("elementosForm:cadastrar");
-		Assert.assertEquals("Sobrenome eh obrigatorio", driver.switchTo().alert().getText());
+		page.escreverSobreNome("Santos");
+		page.clicarBtnCadastrar();
+		Assert.assertEquals("Nome eh obrigatorio", driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
 	}
 	
 	@Test
 	public void regraSexo() {
-		dsl.escrever("elementosForm:sobrenome", "test");
-		dsl.escrever("elementosForm:nome", "test");
+		page.escreverSobreNome("Santos");
+		page.escreverNome("Diogo");
 		
-		boolean masc = dsl.isRadioSelect("elementosForm:sexo:0");
-		boolean fem = dsl.isRadioSelect("elementosForm:sexo:1");
+		boolean masc = page.radioSexoMasculinoSelecionado();
+		boolean fem = page.radioSexoFemininoSelecionado();
 		if(!masc || !fem) {
-			dsl.clicar("elementosForm:cadastrar");
+			page.clicarBtnCadastrar();
 			Assert.assertEquals("Sexo eh obrigatorio", driver.switchTo().alert().getText());
 			driver.switchTo().alert().accept();
 		}else {
@@ -59,30 +60,30 @@ public class Desafio2RegrasDaPag {
 	
 	@Test
 	public void regraComidaFavorita() {
-		dsl.escrever("elementosForm:sobrenome", "test");
-		dsl.escrever("elementosForm:nome", "test");
+		page.escreverSobreNome("Santos");
+		page.escreverNome("Diogo");
 		
-		dsl.clicar("elementosForm:sexo:0");
+		page.clicarSexoMaculino();
 		
-		dsl.clicar("elementosForm:comidaFavorita:0");
-		dsl.clicar("elementosForm:comidaFavorita:3");
-		dsl.clicar("elementosForm:cadastrar");
+		page.clicarEmCarne();
+		page.clicarEmVegetariano();
+		page.clicarBtnCadastrar();
 		Assert.assertEquals("Tem certeza que voce eh vegetariano?", driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
 	}
 	
 	@Test
 	public void regraEsportes() {
-		dsl.escrever("elementosForm:sobrenome", "test");
-		dsl.escrever("elementosForm:nome", "test");
+		page.escreverSobreNome("Santos");
+		page.escreverNome("Diogo");
 		
-		dsl.clicar("elementosForm:sexo:0");
+		page.clicarSexoMaculino();
 		
-		dsl.clicar("elementosForm:comidaFavorita:0");
+		page.clicarEmCarne();
 		
-		dsl.selecionarCombo("elementosForm:esportes", "Karate");
-		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
-		dsl.clicar("elementosForm:cadastrar");
+		page.selecionarEsporte("Karate");
+		page.selecionarEsporte("O que eh esporte?");
+		page.clicarBtnCadastrar();
 		Assert.assertEquals("Voce faz esporte ou nao?",driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
 	}
