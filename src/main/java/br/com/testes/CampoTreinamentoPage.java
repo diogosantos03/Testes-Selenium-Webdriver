@@ -27,8 +27,11 @@ public class CampoTreinamentoPage {
 	public void setEscolaridade(String escolaridade) {
 		dsl.selecionarCombo("elementosForm:escolaridade", escolaridade);
 	}
-	public void setEsporte(String esporte) {
-		dsl.selecionarCombo("elementosForm:esportes",esporte);
+	public void setEsporte(String... esporte) {
+		for(String s : esporte) {
+			dsl.selecionarCombo("elementosForm:esportes",s);
+		}
+		
 	}
 	public void clicarBtnCadastrar() {
 		dsl.clicar("elementosForm:cadastrar");
@@ -74,6 +77,12 @@ public class CampoTreinamentoPage {
 	}
 	public void clicarEmCarne() {
 		dsl.clicar("elementosForm:comidaFavorita:0");
+	}
+	public void clicarFrango() {
+		dsl.clicar("elementosForm:comidaFavorita:1");
+	}
+	public void clicarEmPizza() {
+		dsl.clicar("elementosForm:comidaFavorita:2");
 	}
 	public void clicarEmVegetariano() {
 		dsl.clicar("elementosForm:comidaFavorita:3");
