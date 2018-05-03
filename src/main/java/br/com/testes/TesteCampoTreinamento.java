@@ -20,6 +20,7 @@ import org.openqa.selenium.support.ui.Select;
 public class TesteCampoTreinamento {
 	private WebDriver driver;
 	private CampoTreinamentoPage page;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
@@ -29,6 +30,7 @@ public class TesteCampoTreinamento {
 		driver.manage().window().setSize(new Dimension(700, 700));
 		driver.get("file://" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new CampoTreinamentoPage(driver);
+		dsl = new DSL(driver);
 	}
 	@After
 	public void finaliza() {
@@ -125,6 +127,10 @@ public class TesteCampoTreinamento {
 		//String msg = driver.switchTo().alert().getText();
 		driver.switchTo().alert().accept();
 		js.executeScript("document.getElementById('elementosForm:nome').value = msg");
-		
+	}
+	
+	@Test
+	public void clicarBtnTabela() {
+		dsl.clicarBtnTabela("Nome", "Maria", "Botao", "elementosForm:tableUsuarios");
 	}
 }
