@@ -7,17 +7,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestesFrames {
 	private WebDriver driver;
 	private CampoTreinamentoPage page;
+	private DSL dsl;
 	@Before
 	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver", "/home/diogo/Documentos/Curso_Selenium/Gecko_Drive/geckodriver");
 		driver = new FirefoxDriver();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new CampoTreinamentoPage(driver);
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -35,6 +38,17 @@ public class TestesFrames {
 		
 		driver.switchTo().defaultContent();
 		page.escreverNome(str);
+	}
+	
+	@Test
+	public void testeFrame2() {
+		WebElement frame = driver.findElement(By.id("frame2"));
+		dsl.executarJavaScriptCod("window.scrollBy(0, arguments[0])", frame.getLocation().y);
+		driver.switchTo().frame("frame2");
+		driver.findElement(By.id("frameButton")).click();
+		String msg = driver.switchTo().alert().getText();
+		driver.switchTo().alert().accept();
+		assertEquals("Frame OK!",msg);
 	}
 	
 	@Test

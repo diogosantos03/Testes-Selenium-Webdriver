@@ -11,6 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,7 +32,7 @@ public class TesteCampoTreinamento {
 	}
 	@After
 	public void finaliza() {
-		driver.quit();
+		//driver.quit();
 	}
 	
 	@Test
@@ -114,5 +115,16 @@ public class TesteCampoTreinamento {
 		//assertTrue(drive2.findElement(By.tagName("body")).getText().contains("Campo de Treinamento"));
 		assertEquals("Campo de Treinamento", page.obterTituloPagina());
 		assertEquals("Cuidado onde clica, muitas armadilhas...",page.obtertxtFacil());
+	}
+	
+	@Ignore
+	public void testJavaScript(){
+		//TODO Este teste foi implementado na class TestesFrames no método testeFrame2
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("alert('Testando alert Selenium')");
+		//String msg = driver.switchTo().alert().getText();
+		driver.switchTo().alert().accept();
+		js.executeScript("document.getElementById('elementosForm:nome').value = msg");
+		
 	}
 }

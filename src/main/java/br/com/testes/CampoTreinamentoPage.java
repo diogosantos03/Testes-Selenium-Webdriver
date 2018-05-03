@@ -9,7 +9,9 @@ public class CampoTreinamentoPage {
 	public CampoTreinamentoPage(WebDriver driver) {
 		this.dsl = new DSL(driver);
 	}
-	
+	public void clicarBTN(String idElement){
+		dsl.clicar(idElement);
+	}
 	public void setNome(String nome) {
 		dsl.escrever("elementosForm:nome",nome);
 	}

@@ -1,6 +1,5 @@
 package br.com.testes;
 
-
 import static org.junit.Assert.*;
 
 import org.junit.After;

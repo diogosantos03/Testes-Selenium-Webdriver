@@ -1,6 +1,7 @@
 package br.com.testes;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -35,6 +36,15 @@ public class DSL {
 	}
 	public String getTexto(By by) {
 		return driver.findElement(by).getText();
+	}
+	
+	public Object executarJavaScriptCod(String cmd, Object... param){
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript(cmd, param);
+	}
+	
+	public void clicarNoBtn(String id){
+		driver.findElement(By.id(id)).click();
 	}
 	
 }
