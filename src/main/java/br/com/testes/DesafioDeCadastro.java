@@ -37,12 +37,12 @@ public class DesafioDeCadastro {
 		page.setEsporte("Natacao");
 		page.clicarBtnCadastrar();
 		
-		assertTrue(page.obterResultadoCadastro().contains("Cadastrado!"));
-		assertTrue(page.obterNomeCadastro().endsWith("Diogo"));
-		assertTrue(page.obterSobreNomeCadastro().endsWith("Santos"));
-		assertTrue(page.obterSexoCadastro().endsWith("Masculino"));
-		assertTrue(page.obterComidaCadastro().endsWith("Pizza"));
-		assertTrue(page.obterEscolaridadeCadastro().endsWith("mestrado"));
-		assertTrue(page.obterEsporteCadastro().endsWith("Natacao"));
+		assertEquals("Cadastrado!", page.obterResultadoCadastro());
+		assertEquals("Diogo",page.obterNomeCadastro());
+		assertEquals("Santos",page.obterSobreNomeCadastro());
+		assertEquals("Masculino",page.obterSexoCadastro());
+		assertEquals("Pizza",page.obterComidaCadastro());
+		assertEquals("mestrado", page.obterEscolaridadeCadastro());
+		assertEquals("Natacao",page.obterEsporteCadastro());
 	}
 }

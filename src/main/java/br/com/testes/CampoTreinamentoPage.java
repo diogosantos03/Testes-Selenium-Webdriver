@@ -39,25 +39,25 @@ public class CampoTreinamentoPage {
 		dsl.clicar("elementosForm:cadastrar");
 	}
 	public String obterResultadoCadastro() {
-		return dsl.getTexto(By.id("resultado"));
+		return dsl.getTexto(By.xpath("//*[@id='resultado']/span"));
 	}
 	public String obterNomeCadastro() {
-		return dsl.getTexto(By.id("descNome"));
+		return dsl.getTexto(By.xpath("//*[@id='descNome']/span"));
 	}
 	public String obterSobreNomeCadastro() {
-		return dsl.getTexto(By.id("descSobrenome"));
+		return dsl.getTexto(By.xpath("//*[@id='descSobrenome']/span"));
 	}
 	public String obterSexoCadastro() {
-		return dsl.getTexto(By.id("descSexo"));
+		return dsl.getTexto(By.xpath("//*[@id='descSexo']/span"));
 	}
 	public String obterComidaCadastro() {
-		return dsl.getTexto(By.id("descComida"));
+		return dsl.getTexto(By.xpath("//*[@id='descComida']/span"));
 	}
 	public String obterEscolaridadeCadastro() {
-		return dsl.getTexto(By.id("descEscolaridade"));
+		return dsl.getTexto(By.xpath("//*[@id='descEscolaridade']/span"));
 	}
 	public String obterEsporteCadastro() {
-		return dsl.getTexto(By.id("descEsportes"));
+		return dsl.getTexto(By.xpath("//*[@id='descEsportes']/span"));
 	}
 	public void escreverNome(String txt) {
 		dsl.escrever("elementosForm:nome", txt);
