@@ -27,6 +27,9 @@ public class DSL {
 	public void clicar(String idElement) {
 		driver.findElement(By.id(idElement)).click();
 	}
+	public void clicar(By by) {
+		driver.findElement(by).click();
+	}
 	public boolean isRadioSelect(String idElement) {
 		return driver.findElement(By.id(idElement)).isSelected();
 	}
