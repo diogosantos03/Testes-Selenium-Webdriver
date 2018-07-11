@@ -26,8 +26,9 @@ public class TesteSincronismo {
 	}
 	
 	@Test
-	public void deveInteragirRespostaDemorada() {
+	public void deveInteragirRespostaDemorada() throws InterruptedException {
 		dsl.clicarNoBtn("buttonDelay");
+		Thread.sleep(3000);
 		dsl.escrever("novoCampo", "Escrevendo Test");
 	}
 	
