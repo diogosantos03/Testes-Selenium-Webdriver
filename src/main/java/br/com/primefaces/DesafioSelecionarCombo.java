@@ -29,8 +29,7 @@ public class DesafioSelecionarCombo {
 	
 	@Test
 	public void desafio() {
-		dsl.clicar(By.xpath("//*[@id='j_idt115:console']/div[3]/span"));
-		dsl.clicar(By.xpath(".//*[@id='j_idt115:console_2']"));
+		
 		
 		assertEquals("PS4", dsl.getTexto(By.id("j_idt115:console_label")));
 	}
