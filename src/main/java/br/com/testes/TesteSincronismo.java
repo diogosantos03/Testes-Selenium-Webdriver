@@ -5,10 +5,14 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TesteSincronismo {
 	private WebDriver driver;
@@ -31,6 +35,13 @@ public class TesteSincronismo {
 	public void deveUtilizarEsperaFixa() throws InterruptedException {
 		dsl.clicarNoBtn("buttonDelay");
 		Thread.sleep(3000);
+		dsl.escrever("novoCampo", "Escrevendo Test");
+	}
+	@Test
+	public void deveUtilizarEsperaExplicita() throws InterruptedException {
+		dsl.clicarNoBtn("buttonDelay");
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
 		dsl.escrever("novoCampo", "Escrevendo Test");
 	}
 	@Test
