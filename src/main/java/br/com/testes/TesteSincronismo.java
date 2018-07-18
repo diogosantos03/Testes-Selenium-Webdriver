@@ -1,5 +1,7 @@
 package br.com.testes;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,14 +24,21 @@ public class TesteSincronismo {
 	}
 	@After
 	public void finaliza() {
-		//driver.quit();
+		driver.quit();
 	}
 	
 	@Test
-	public void deveInteragirRespostaDemorada() throws InterruptedException {
+	public void deveUtilizarEsperaFixa() throws InterruptedException {
 		dsl.clicarNoBtn("buttonDelay");
 		Thread.sleep(3000);
 		dsl.escrever("novoCampo", "Escrevendo Test");
+	}
+	@Test
+	public void deveUtilizarEsperaImplicita() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		dsl.clicarNoBtn("buttonDelay");
+		dsl.escrever("novoCampo", "Escrevendo Test");
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 	}
 	
 }
