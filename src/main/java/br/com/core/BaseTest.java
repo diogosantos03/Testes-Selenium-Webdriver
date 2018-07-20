@@ -6,6 +6,9 @@ public class BaseTest {
 	
 	@After
 	public void finaliza() {
-		DriverFactory.killDriver();
+		if(Propriedades.FECHAR_BROWSER) {
+			DriverFactory.killDriver();
+		}
+		
 	}
 }
