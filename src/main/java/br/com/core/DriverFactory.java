@@ -14,8 +14,8 @@ public class DriverFactory {
 	public static WebDriver getDriver() {
 		if(driver == null) {
 			driver = new FirefoxDriver();
-			driver.manage().window().setPosition(new Point(100, 100));
-			driver.manage().window().setSize(new Dimension(700, 700));
+			//driver.manage().window().setPosition(new Point(100, 100));
+			//driver.manage().window().setSize(new Dimension(700, 700));
 		}
 		return driver;
 	}
